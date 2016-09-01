@@ -1,0 +1,14 @@
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - env:
+          - name: MYSQL_SERVICE_NAME
+            value: mysql
+          - name: MYSQL_SERVICE_DATABASE
+            value: sampledb
+          - name: MYSQL_SERVICE_USERNAME
+            value:
+          - name: MYSQL_SERVICE_PASSWORD
+            value:
