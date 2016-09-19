@@ -39,9 +39,11 @@ Besides, it is assumed that a MySQL service is already running on the platform. 
 
 The example can be deployed using a single goal:
 
-    $ mvn fabric8:deploy
+    $ mvn fabric8:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password>
 
 This deploys the Kubernetes resource descriptors previously generated to the orchestration platform.
+The `username` and `password` system properties correspond to the credentials
+used when deploying the MySQL database service.
 
 When the example runs in Kubernetes, you can use the Kubernetes client tool to inspect the status, e.g.:
 
