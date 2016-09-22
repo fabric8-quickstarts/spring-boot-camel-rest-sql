@@ -65,6 +65,8 @@ When the example is running, a REST service is available to list the books that 
 
 If you run the example on a local Fabric8 installation using Vagrant, then the REST service is exposed at <http://qs-camel-rest-sql.vagrant.f8>.
 
+Notice: As it depends on your OpenShift setup, the hostname (route) might vary. Verify with `oc get routes` which hostname is valid for you.  Add the '-Dfabric8.deploy.createExternalUrls=true' option to your maven commands if you want it to deploy a Route configuration for the service.
+
 The actual endpoint is using the _context-path_ `camel-rest-sql/books` and the REST service provides two services:
 
 - `books`: to list all the available books that can be ordered,
