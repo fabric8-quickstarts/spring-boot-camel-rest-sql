@@ -2,7 +2,8 @@
 
 This example demonstrates how to use SQL via JDBC along with Camel's REST DSL to expose a RESTful API.
 
-This example relies on the [Fabric8 Maven plugin](https://maven.fabric8.io) for its build configuration.
+This example relies on the [Fabric8 Maven plugin](https://maven.fabric8.io) for its build configuration
+and uses the [fabric8 Java base image](https://github.com/fabric8io/base-images#java-base-images).
 
 ### Building
 
@@ -29,32 +30,48 @@ You can then access the REST API directly from your Web browser, e.g.:
 - <http://localhost:8080/camel-rest-sql/books>
 - <http://localhost:8080/camel-rest-sql/books/order/1>
 
-### Running the example in Fabric8
+### Running the example in Kubernetes / OpenShift
 
-It is assumed a Kubernetes platform is already running. If not, you can find details how to [get started](http://fabric8.io/guide/getStarted/index.html).
+It is assumed a Kubernetes / OpenShift platform is already running. If not, you can find details how to [get started](http://fabric8.io/guide/getStarted/index.html).
 
-Besides, it is assumed that a MySQL service is already running on the platform. You can deploy it using the provided deployment by executing:
+Besides, it is assumed that a MySQL service is already running on the platform. You can deploy it using the provided deployment by executing in Kubernetes:
 
     $ kubectl create -f mysql-deployment.yml
 
-The example can be deployed using a single goal:
+or in OpenShift:
 
-    $ mvn fabric8:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password>
+    $ oc create -f https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-ephemeral-template.json
+    $ oc new-app --template=mysql-ephemeral
 
-This deploys the Kubernetes resource descriptors previously generated to the orchestration platform.
+More information can be found in [using the MySQL database image](https://docs.openshift.com/container-platform/3.3/using_images/db_images/mysql.html). You may need to pass `MYSQL_RANDOM_ROOT_PASSWORD=true` as environment variable to the deployment.
+
+The example can then be built and deployed using a single goal:
+
+    $ mvn fabric8:run -Dmysql-service-username=<username> -Dmysql-service-password=<password>
+
 The `username` and `password` system properties correspond to the credentials
 used when deploying the MySQL database service.
 
-When the example runs in Kubernetes, you can use the Kubernetes client tool to inspect the status, e.g.:
+You can use the Kubernetes or OpenShift client tool to inspect the status, e.g.:
 
 - To list all the running pods:
     ```
     $ kubectl get pods
     ```
 
+- or on OpenShift:
+    ```
+    $ oc get pods
+    ```
+
 - Then find the name of the pod that runs this example, and output the logs from the running pod with:
     ```
-    $ kubectl logs <name of pod>
+    $ kubectl logs <pod_name>
+    ```
+
+- or on OpenShift:
+    ```
+    $ oc logs <pod_name>
     ```
 
 You can also use the Fabric8 [Web console](http://fabric8.io/guide/console.html) to manage the running pods, view logs and much more.
@@ -65,7 +82,7 @@ When the example is running, a REST service is available to list the books that 
 
 If you run the example on a local Fabric8 installation using Vagrant, then the REST service is exposed at <http://qs-camel-rest-sql.vagrant.f8>.
 
-Notice: As it depends on your OpenShift setup, the hostname (route) might vary. Verify with `oc get routes` which hostname is valid for you.  Add the '-Dfabric8.deploy.createExternalUrls=true' option to your maven commands if you want it to deploy a Route configuration for the service.
+Notice: As it depends on your OpenShift setup, the hostname (route) might vary. Verify with `oc get routes` which hostname is valid for you. Add the `-Dfabric8.deploy.createExternalUrls=true` option to your Maven commands if you want it to deploy a Route configuration for the service.
 
 The actual endpoint is using the _context-path_ `camel-rest-sql/books` and the REST service provides two services:
 
