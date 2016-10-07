@@ -3,6 +3,10 @@ camel:
     # The Camel context name
     name: CamelRestSql
 
+# Binding health checks to a different port
+management:
+  port: 8081
+
 mysql:
   service:
     # The name of the service hosting the MySQL database server,
