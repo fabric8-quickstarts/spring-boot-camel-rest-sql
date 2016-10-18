@@ -33,8 +33,7 @@
     <run.profiles>dev</run.profiles>
 
     <!-- configure the versions you want to use here -->
-    <camel.version>2.18.0</camel.version>
-    <fabric8.version>2.2.168</fabric8.version>
+    <fabric8.version>2.2.169</fabric8.version>
     <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
 
     <!-- Maven plugin versions -->
@@ -48,22 +47,8 @@
       <!-- import Fabric8 platform BOM first -->
       <dependency>
         <groupId>io.fabric8</groupId>
-        <artifactId>fabric8-project-bom-with-platform-deps</artifactId>
+        <artifactId>fabric8-project-bom-camel-spring-boot</artifactId>
         <version>${fabric8.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>${spring-boot.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-parent</artifactId>
-        <version>${camel.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -99,19 +84,19 @@
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
-      <artifactId>camel-servlet</artifactId>
+      <artifactId>camel-servlet-starter</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
-      <artifactId>camel-jackson</artifactId>
+      <artifactId>camel-jackson-starter</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
-      <artifactId>camel-swagger-java</artifactId>
+      <artifactId>camel-swagger-java-starter</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
-      <artifactId>camel-sql</artifactId>
+      <artifactId>camel-sql-starter</artifactId>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>
