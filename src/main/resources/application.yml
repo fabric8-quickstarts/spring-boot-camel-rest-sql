@@ -7,6 +7,12 @@ camel:
 management:
   port: 8081
 
+# disable all management enpoints except health
+endpoints:
+  enabled: false
+  health:
+    enabled: true
+
 mysql:
   service:
     # The name of the service hosting the MySQL database server,
