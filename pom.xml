@@ -33,7 +33,7 @@
     <run.profiles>dev</run.profiles>
 
     <!-- configure the versions you want to use here -->
-    <fabric8.version>2.2.176</fabric8.version>
+    <fabric8.version>2.2.178</fabric8.version>
     <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
 
     <!-- Maven plugin versions -->
