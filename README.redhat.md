@@ -57,6 +57,21 @@ You can use the OpenShift client tool to inspect the status, e.g.:
     $ oc logs <pod_name>
     ```
 
+### Running via an S2I Application Template
+
+Applicaiton templates allow you deploy applications to OpenShift by filling out a form in the OpenShift console that allows you to adjust deployment parameters.  This template uses an S2I source build so that it handle building and deploying the application for you.
+
+First, import the Fuse image streams:
+
+    oc create -f https://raw.githubusercontent.com/jboss-fuse/application-templates/fis-2.0.x.redhat/fis-image-streams.json
+
+Then create the quickstart template:
+
+    oc create -f https://raw.githubusercontent.com/jboss-fuse/application-templates/fis-2.0.x.redhat/quickstarts/spring-boot-camel-rest-sql-template.json
+
+Now when you use "Add to Project" button in the OpenShift console, you should see a template for this quickstart. 
+
+
 ### Accessing the REST service
 
 When the example is running, a REST service is available to list the books that can be ordered, and as well the order statuses.
