@@ -40,7 +40,7 @@ More information can be found in [using the MySQL database image](https://docs.o
 
 The example can then be built and deployed using a single goal:
 
-    $ mvn fabric8:run -Dmysql-service-username=<username> -Dmysql-service-password=<password>
+    $ mvn fabric8:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password>
 
 The `username` and `password` system properties correspond to the credentials
 used when deploying the MySQL database service.
