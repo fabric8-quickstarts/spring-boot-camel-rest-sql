@@ -13,7 +13,7 @@ The example can be built with
 It is assumed that:
 - OpenShift platform is already running, if not you can find details how to [Install OpenShift at your site](https://docs.openshift.com/container-platform/3.3/install_config/index.html).
 - Your system is configured for Fabric8 Maven Workflow, if not you can find a [Get Started Guide](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/single/red-hat-jboss-fuse-integration-services-20-for-openshift/)
-- The Red Hat MySQL xPaaS product should already be installed and running on your OpenShift installation, one simple way to run a MySQL service is following the documentation of the MySQL xPaaS image for OpenShift related to the `mysql-ephemeral` template.
+- The OpenShift MySQL container image should already be installed and running on your OpenShift installation, one simple way to run a MySQL service is following the documentation of the Openshift MySQL container image related to the `mysql-ephemeral` template.
 
 The example can then be built and deployed using a single goal:
 
@@ -46,7 +46,7 @@ Then create the quickstart template:
 
     oc create -f https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-rest-sql-template.json
 
-Now when you use "Add to Project" button in the OpenShift console, you should see a template for this quickstart. 
+Now when you use "Add to Project" button in the OpenShift console, you should see a template for this quickstart.
 
 
 ### Accessing the REST service
@@ -70,4 +70,3 @@ You can then access these services from your Web browser, e.g.:
 ### Swagger API
 
 The example provides API documentation of the service using Swagger using the _context-path_ `camel-rest-sql/api-doc`. You can access the API documentation from your Web browser at <http://qs-camel-rest-sql.example.com/camel-rest-sql/api-doc>.
-
