@@ -1,6 +1,11 @@
 camel:
   springboot:
     name: CamelRestSql
+  component:
+    servlet:
+      mapping:
+        enabled: true
+        context-path: /camel-rest-sql/*
 
 quickstart:
   generateOrderPeriod: 1s
