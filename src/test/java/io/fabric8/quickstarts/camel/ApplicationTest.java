@@ -71,9 +71,7 @@ public class ApplicationTest {
         assertThat(booksResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         List<Book> books = booksResponse.getBody();
         assertThat(books).hasSize(2);
-        assertThat(books).element(0)
-            .hasFieldOrPropertyWithValue("description", "ActiveMQ in Action");
-        assertThat(books).element(1)
-            .hasFieldOrPropertyWithValue("description", "Camel in Action");
+        assertThat(books.get(0).getDescription()).isIn("ActiveMQ in Action");
+        assertThat(books.get(1).getDescription()).isIn("Camel in Action");
     }
 }
