@@ -35,6 +35,7 @@
     <!-- configure the versions you want to use here -->
     <fabric8.version>2.3.2</fabric8.version>
     <spring-boot.version>1.5.4.RELEASE</spring-boot.version>
+    <tomcat.juli.version>8.0.36</tomcat.juli.version>
 
     <!-- Maven plugin versions -->
     <fabric8.maven.plugin.version>3.5.34</fabric8.maven.plugin.version>
@@ -51,6 +52,13 @@
         <version>${fabric8.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+
+      <!-- Need to use 8.0.36 tomcat-juli, redhat build has not been released -->
+      <dependency>
+        <groupId>org.apache.tomcat</groupId>
+        <artifactId>tomcat-juli</artifactId>
+        <version>${tomcat.juli.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
