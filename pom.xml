@@ -38,7 +38,7 @@
     <tomcat.juli.version>8.0.36</tomcat.juli.version>
 
     <!-- Maven plugin versions -->
-    <fabric8.maven.plugin.version>3.5.33.fuse-000089-redhat-3</fabric8.maven.plugin.version>
+    <fabric8.maven.plugin.version>3.5.33.fuse-000089-redhat-4</fabric8.maven.plugin.version>
     <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
     <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
   </properties>
