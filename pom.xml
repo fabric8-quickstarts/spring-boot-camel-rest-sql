@@ -33,7 +33,7 @@
     <run.profiles>dev</run.profiles>
 
     <!-- configure the versions you want to use here -->
-    <fuse.version>7.3.0.fuse-730051</fuse.version>
+    <fuse.version>7.3.0.fuse-730051-redhat-00001</fuse.version>
 
     <tomcat.juli.version>8.0.36</tomcat.juli.version>
 
