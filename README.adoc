@@ -1,0 +1,144 @@
+= Spring-Boot Camel Quickstart using REST / SQL QuickStart
+
+This example demonstrates how to use SQL via JDBC along with Camel's REST DSL to expose a RESTful API.
+
+This example relies on the https://maven.fabric8.io[Fabric8 Maven plugin] for its build configuration
+and uses the https://github.com/fabric8io/base-images#java-base-images[fabric8 Java base image].
+
+The application utilizes the Spring http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/annotation/ImportResource.html[`@ImportResource`] annotation to load a Camel Context definition via a _src/main/resources/spring/camel-context.xml_ file on the classpath.
+
+IMPORTANT: This quickstart can run in 2 modes: standalone on your machine and on Kubernetes / OpenShift Cluster
+
+== Deployment options
+
+You can run this quickstart in the following modes:
+
+* Kubernetese / Single-node OpenShift cluster
+* Standalone on your machine
+
+The most effective way to run this quickstart is to deploy and run the project on OpenShift.
+
+For more details about running this quickstart on a single-node OpenShift cluster, CI/CD deployments, as well as the rest of the runtime, see the link:http://appdev.openshift.io/docs/spring-boot-runtime.html[Spring Boot Runtime Guide].
+
+== Running the Quickstart on a single-node Kubernetes/OpenShift cluster
+
+A single-node Kubernetes/OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
+
+If you have a single-node Kubernetes/OpenShift cluster, such as Minishift or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can deploy your quickstart there.
+
+To deploy this quickstart to a running single-node OpenShift cluster:
+
+. Download the project and extract the archive on your local filesystem.
+
+. Log in to your OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc login -u developer -p developer
+----
+
+. Create a new OpenShift project for the quickstart:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc new-project MY_PROJECT_NAME
+----
+
+. It is assumed that a MySQL service is already running on the platform. You can deploy it using the provided deployment by executing in single-node OpenShift cluster:
++
+----
+$ oc create -f https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-ephemeral-template.json
+$ oc new-app --template=mysql-ephemeral
+----
++
+More information can be found in https://docs.openshift.com/container-platform/3.3/using_images/db_images/mysql.html[using the MySQL database image]. You may need to pass `MYSQL_RANDOM_ROOT_PASSWORD=true` as environment variable to the deployment.
+
+. Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/spring-boot-camel-rest-sql`) :
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd my_openshift/spring-boot-camel-rest-sql
+----
+
+. Build and deploy the project to the OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ mvn clean -DskipTests fabric8:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password> -Popenshift
+----
++
+The `username` and `password` system properties correspond to the credentials used when deploying the MySQL database service.
+
+. In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
+Wait until you can see that the pod for the `spring-boot-camel-rest-sql` has started up.
+
+== Accessing the REST service
+
+When the example is running, a REST service is available to list the books that can be ordered, and as well the order statuses.
+
+If you run the example on a single-node OpenShift cluster, then the REST service is exposed at 'http://spring-boot-camel-rest-sql-MY_PROJECT_NAME.OPENSHIFT_IP_ADDR.nip.io/camel-rest-sql/`.
+
+Notice: As it depends on your OpenShift setup, the hostname (route) might vary. Verify with `oc get routes` which hostname is valid for you. Add the `-Dfabric8.deploy.createExternalUrls=true` option to your Maven commands if you want it to deploy a Route configuration for the service.
+
+The actual endpoint is using the _context-path_ `camel-rest-sql/books` and the REST service provides two services:
+
+- `books`: to list all the available books that can be ordered,
+- `books/order/{id}`: to output order status for the given order `id`.
+
+The example automatically creates new orders with a running order `id` starting from 1.
+
+You can then access these services from your Web browser, e.g.:
+
+- <http://spring-boot-camel-rest-sql-MY_PROJECT_NAME.OPENSHIFT_IP_ADDR.nip.io/camel-rest-sql/books>
+- <http://spring-boot-camel-rest-sql-MY_PROJECT_NAME.OPENSHIFT_IP_ADDR.nip.io/camel-rest-sql/books/order/1>
+
+== Swagger API
+
+The example provides API documentation of the service using Swagger using the _context-path_ `camel-rest-sql/api-doc`. You can access the API documentation from your Web browser at <http://spring-boot-camel-rest-sql-MY_PROJECT_NAME.OPENSHIFT_IP_ADDR.nip.io/camel-rest-sql/api-doc>.
+
+
+== Running the quickstart standalone on your machine
+
+To run this quickstart as a standalone project on your local machine:
+
+. Download the project and extract the archive on your local filesystem.
+. Build the project:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd PROJECT_DIR
+$ mvn clean package
+----
+. Run the service:
+
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ mvn spring-boot:run
+----
++
+Alternatively, you can run the application locally using the executable JAR produced:
++
+----
+$ java -jar -Dspring.profiles.active=dev target/spring-boot-camel-rest-sql-1.0-SNAPSHOT.jar
+----
++
+This uses an embedded in-memory HSQLDB database. You can use the default Spring Boot profile in case you have a MySQL server available for you to test.
+
+. You can then access the REST API directly from your Web browser, e.g.:
+
+- <http://localhost:8080/camel-rest-sql/books>
+- <http://localhost:8080/camel-rest-sql/books/order/1>
+
+
+== Application Testing
+
+The example includes a https://github.com/fabric8io/fabric8/tree/master/components/fabric8-arquillian[fabric8 arquillian] Kubernetes Integration Test.
+Once the container image has been built and deployed in Kubernetes, the integration test can be run with:
+
+[source,bash,options="nowrap",subs="attributes+"]
+----
+mvn test -Dtest=*Test
+----
+
+The test is disabled by default and has to be enabled using `-Dtest`. https://fabric8.io/guide/testing.html[Integration Testing] and https://fabric8.io/guide/arquillian.html[Fabric8 Arquillian Extension] provide more information on writing full fledged black box integration tests for Kubernetes.
