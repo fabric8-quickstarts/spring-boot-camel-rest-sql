@@ -32,6 +32,8 @@ spring:
     url:      jdbc:mysql://${${mysql.service.name}.service.host}:${${mysql.service.name}.service.port}/${mysql.service.database}
     username: ${mysql.service.username}
     password: ${mysql.service.password}
+  main:
+    allow-bean-definition-overriding: true
 
 # The application configuration properties
 quickstart:
