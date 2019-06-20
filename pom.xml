@@ -23,7 +23,7 @@
 
     <groupId>io.fabric8.quickstarts</groupId>
     <artifactId>spring-boot-camel-rest-sql</artifactId>
-    <version>1.0.0.fuse-740005</version>
+    <version>1.0.0.fuse-740005-redhat-00001</version>
 
     <name>Fabric8 :: Quickstarts :: Spring-Boot :: Camel REST / SQL</name>
     <description>Spring Boot example running a Camel REST route connecting to a SQL database</description>
@@ -36,7 +36,7 @@
         <run.profiles>dev</run.profiles>
 
         <!-- configure the versions you want to use here -->
-        <fuse.bom.version>7.3.0.fuse-730058-redhat-00001</fuse.bom.version>
+        <fuse.bom.version>7.4.0.fuse-740032-redhat-00001</fuse.bom.version>
 
         <tomcat.juli.version>8.0.36</tomcat.juli.version>
 
