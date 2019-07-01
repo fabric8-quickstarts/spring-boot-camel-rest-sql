@@ -36,9 +36,7 @@
         <run.profiles>dev</run.profiles>
 
         <!-- configure the versions you want to use here -->
-        <fuse.bom.version>7.3.0.fuse-730058-redhat-00001</fuse.bom.version>
-
-        <tomcat.juli.version>8.0.36</tomcat.juli.version>
+        <fuse.bom.version>7.4.0-SNAPSHOT</fuse.bom.version>
 
         <!-- maven plugin versions -->
         <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
@@ -53,13 +51,6 @@
                 <version>${fuse.bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <!-- Need to use 8.0.36 tomcat-juli, redhat build has not been released -->
-            <dependency>
-                <groupId>org.apache.tomcat</groupId>
-                <artifactId>tomcat-juli</artifactId>
-                <version>${tomcat.juli.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -132,11 +123,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>io.fabric8</groupId>
-            <artifactId>fabric8-arquillian</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <scope>test</scope>
@@ -144,7 +130,6 @@
     </dependencies>
 
     <build>
-        <defaultGoal>spring-boot:run</defaultGoal>
 
         <plugins>
             <plugin>

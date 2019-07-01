@@ -34,14 +34,6 @@ public class Application extends SpringBootServletInitializer {
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean
-    ServletRegistrationBean servletRegistrationBean() {
-        ServletRegistrationBean servlet = new ServletRegistrationBean(
-            new CamelHttpTransportServlet(), "/camel-rest-sql/*");
-        servlet.setName("CamelServlet");
-        return servlet;
-    }
-
     @Component
     class RestApi extends RouteBuilder {
 
