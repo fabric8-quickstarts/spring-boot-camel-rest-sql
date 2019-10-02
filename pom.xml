@@ -38,7 +38,7 @@
         <!-- configure the versions you want to use here -->
         <fuse.bom.version>7.3.0.fuse-730058-redhat-00001</fuse.bom.version>
 
-        <tomcat.juli.version>8.0.36</tomcat.juli.version>
+        <tomcat.juli.version>8.0.36.redhat-39</tomcat.juli.version>
 
         <!-- maven plugin versions -->
         <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
