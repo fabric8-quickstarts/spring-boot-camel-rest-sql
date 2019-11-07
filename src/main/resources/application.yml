@@ -13,9 +13,6 @@ camel:
 management:
   server:
     port: 8081
-  endpoints:
-    web:
-      base-path: /
 
 # disable all management enpoints except health
 endpoints:
