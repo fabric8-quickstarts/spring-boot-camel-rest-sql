@@ -16,7 +16,7 @@ spec:
   type: ClusterIP
   sessionAffinity: None
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
@@ -26,6 +26,7 @@ spec:
   selector:
     matchLabels:
       name: mysql
+      app: mysql
   template:
     metadata:
       name: mysql
