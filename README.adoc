@@ -104,7 +104,7 @@ $ oc new-project MY_PROJECT_NAME
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc import-image fis-java-openshift:2.0 --from=registry.access.redhat.com/jboss-fuse-6/fis-java-openshift:2.0 --confirm
+$ oc import-image fuse-java-openshift:2.0 --from=registry.access.redhat.com/jboss-fuse-7/fuse-java-openshift:2.0 --confirm
 ----
 
 . It is assumed that a MySQL service is already running on the platform. You can deploy it using the provided deployment by executing in single-node OpenShift cluster:
@@ -129,7 +129,7 @@ $ cd my_openshift/spring-boot-camel-rest-sql
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ mvn clean -DskipTests fabric8:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password> -Popenshift  -Dfabric8.generator.fromMode=istag -Dfabric8.generator.from=MY_PROJECT_NAME/fis-java-openshift:2.0
+$ mvn clean -DskipTests fabric8:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password> -Popenshift  -Dfabric8.generator.fromMode=istag -Dfabric8.generator.from=MY_PROJECT_NAME/fuse-java-openshift:2.0
 ----
 +
 The `username` and `password` system properties correspond to the credentials used when deploying the MySQL database service.
