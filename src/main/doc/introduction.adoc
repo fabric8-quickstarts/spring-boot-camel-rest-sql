@@ -1,0 +1,8 @@
+= Spring-Boot Camel Quickstart using REST / SQL QuickStart
+
+This example demonstrates how to use SQL via JDBC along with Camel's REST DSL to expose a RESTful API.
+
+This example relies on the https://maven.fabric8.io[Fabric8 Maven plugin] for its build configuration
+and uses the https://github.com/fabric8io/base-images#java-base-images[fabric8 Java base image].
+
+The application utilizes the Spring http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/annotation/ImportResource.html[`@ImportResource`] annotation to load a Camel Context definition via a _src/main/resources/spring/camel-context.xml_ file on the classpath.

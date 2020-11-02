@@ -1,0 +1,8 @@
+. Build and deploy the project to the OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ mvn clean -DskipTests oc:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password> -Popenshift -Djkube.generator.fromMode=istag -Djkube.generator.from=MY_PROJECT_NAME/fuse-java-openshift:1.9
+----
++
+The `username` and `password` system properties correspond to the credentials used when deploying the MySQL database service.

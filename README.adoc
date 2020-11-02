@@ -20,15 +20,15 @@ The most effective way to run this quickstart is to deploy and run the project o
 
 For more details about running this quickstart on a single-node OpenShift cluster, CI/CD deployments, as well as the rest of the runtime, see the link:http://appdev.openshift.io/docs/spring-boot-runtime.html[Spring Boot Runtime Guide].
 
-== Running the Quickstart on a single-node Kubernetes/OpenShift cluster
+== Running the Quickstart on a single-node Kubernetese/OpenShift cluster
 
 IMPORTANT: You need to run this example on Container Development Kit 3.3 or OpenShift 3.7.
 Both of these products have suitable Fuse images pre-installed.
 If you run it in an environment where those images are not preinstalled follow the steps described in <<single-node-without-preinstalled-images>>.
 
-A single-node Kubernetes/OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
+A single-node Kubernetese/OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
 
-If you have a single-node Kubernetes/OpenShift cluster, such as Minishift or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can deploy your quickstart there.
+If you have a single-node Kubernetese/OpenShift cluster, such as Minishift or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can deploy your quickstart there.
 
 . Log in to your OpenShift cluster:
 +
@@ -44,6 +44,13 @@ $ oc login -u developer -p developer
 $ oc new-project MY_PROJECT_NAME
 ----
 
+. Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/spring-boot-camel-rest-sql`) :
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd my_openshift/spring-boot-camel-rest-sql
+----
+
 . It is assumed that a MySQL service is already running on the platform. You can deploy it using the provided deployment by executing in single-node OpenShift cluster:
 +
 ----
@@ -52,15 +59,6 @@ $ oc new-app --template=mysql-ephemeral
 ----
 +
 More information can be found in https://docs.openshift.com/container-platform/3.3/using_images/db_images/mysql.html[using the MySQL database image]. You may need to pass `MYSQL_RANDOM_ROOT_PASSWORD=true` as environment variable to the deployment.
-
-. Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/spring-boot-camel-rest-sql`) :
-+
-or
-+
-[source,bash,options="nowrap",subs="attributes+"]
-----
-$ cd my_openshift/spring-boot-camel-rest-sql
-----
 
 . Build and deploy the project to the OpenShift cluster:
 +
@@ -74,17 +72,16 @@ The `username` and `password` system properties correspond to the credentials us
 . In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
 Wait until you can see that the pod for the `spring-boot-camel-rest-sql` has started up.
 
-. On the project's `Overview` page, navigate to the details page deployment of the `spring-boot-camel-rest-sql` application: `https://OPENSHIFT_IP_ADDR:8443/console/project/MY_PROJECT_NAME/browse/pods/spring-boot-camel-rest-sql-NUMBER_OF_DEPLOYMENT?tab=details`.
+. On the project's `Overview` page, navigate to the details page deployment of the `spring-boot-camel-rest-sql` application: `https://OPENSHIFT_IP_ADDR:8443/console/project/MY_PROJECT_NAME/browse/rc/spring-boot-camel-rest-sql-NUMBER_OF_DEPLOYMENT?tab=details`.
 
 . Switch to tab `Logs` and then see the messages sent by Camel.
 
 [#single-node-without-preinstalled-images]
-=== Running the Quickstart on a single-node Kubernetes/OpenShift cluster without preinstalled images
+=== Running the Quickstart on a single-node Kubernetese/OpenShift cluster without preinstalled images
 
-A single-node Kubernetes/OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
+A single-node Kubernetese/OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
 
-If you have a single-node Kubernetes/OpenShift cluster, such as Minishift or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can deploy your quickstart there.
-
+If you have a single-node Kubernetese/OpenShift cluster, such as Minishift or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can deploy your quickstart there.
 
 . Log in to your OpenShift cluster:
 +
@@ -100,11 +97,21 @@ $ oc login -u developer -p developer
 $ oc new-project MY_PROJECT_NAME
 ----
 
-. Import base images in your newly created project (MY_PROJECT_NAME):
+. Configure Red Hat Container Registry authentication (if it is not configured).
+Follow https://access.redhat.com/documentation/en-us/red_hat_fuse/7.8/html-single/fuse_on_openshift_guide/index#configure-container-registry[documentation].
+
+. Import base images in your newly created project (MY_PROJECT_NAME). :
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc import-image fuse-java-openshift:2.0 --from=registry.access.redhat.com/jboss-fuse-7/fuse-java-openshift:2.0 --confirm
+$ oc import-image fuse-java-openshift:1.8 --from=registry.redhat.io/fuse7/fuse-java-openshift:1.8 --confirm
+----
+
+. Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/spring-boot-camel-rest-sql`) :
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd my_openshift/spring-boot-camel-rest-sql
 ----
 
 . It is assumed that a MySQL service is already running on the platform. You can deploy it using the provided deployment by executing in single-node OpenShift cluster:
@@ -116,20 +123,11 @@ $ oc new-app --template=mysql-ephemeral
 +
 More information can be found in https://docs.openshift.com/container-platform/3.3/using_images/db_images/mysql.html[using the MySQL database image]. You may need to pass `MYSQL_RANDOM_ROOT_PASSWORD=true` as environment variable to the deployment.
 
-. Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/spring-boot-camel-rest-sql`) :
-+
-or
-+
-[source,bash,options="nowrap",subs="attributes+"]
-----
-$ cd my_openshift/spring-boot-camel-rest-sql
-----
-
 . Build and deploy the project to the OpenShift cluster:
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ mvn clean -DskipTests oc:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password> -Popenshift -Djkube.generator.fromMode=istag -Djkube.generator.from=MY_PROJECT_NAME/fuse-java-openshift:2.0
+$ mvn clean -DskipTests oc:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password> -Popenshift -Djkube.generator.fromMode=istag -Djkube.generator.from=MY_PROJECT_NAME/fuse-java-openshift:1.9
 ----
 +
 The `username` and `password` system properties correspond to the credentials used when deploying the MySQL database service.
@@ -137,7 +135,7 @@ The `username` and `password` system properties correspond to the credentials us
 . In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
 Wait until you can see that the pod for the `spring-boot-camel-rest-sql` has started up.
 
-. On the project's `Overview` page, navigate to the details page deployment of the `spring-boot-camel-rest-sql` application: `https://OPENSHIFT_IP_ADDR:8443/console/project/MY_PROJECT_NAME/browse/pods/spring-boot-camel-rest-sql-NUMBER_OF_DEPLOYMENT?tab=details`.
+. On the project's `Overview` page, navigate to the details page deployment of the `spring-boot-camel-rest-sql` application: `https://OPENSHIFT_IP_ADDR:8443/console/project/MY_PROJECT_NAME/browse/rc/spring-boot-camel-rest-sql-NUMBER_OF_DEPLOYMENT?tab=details`.
 
 . Switch to tab `Logs` and then see the messages sent by Camel.
 
@@ -147,7 +145,7 @@ When the example is running, a REST service is available to list the books that 
 
 If you run the example on a single-node OpenShift cluster, then the REST service is exposed at 'http://spring-boot-camel-rest-sql-MY_PROJECT_NAME.OPENSHIFT_IP_ADDR.nip.io/camel-rest-sql/`.
 
-Notice: As it depends on your OpenShift setup, the hostname (route) might vary. Verify with `oc get routes` which hostname is valid for you. Add the `-Djkube.deploy.createExternalUrls=true` option to your Maven commands if you want it to deploy a Route configuration for the service.
+Notice: As it depends on your OpenShift setup, the hostname (route) might vary. Verify with `oc get routes` which hostname is valid for you. Add the `-Dfabric8.deploy.createExternalUrls=true` option to your Maven commands if you want it to deploy a Route configuration for the service.
 
 The actual endpoint is using the _context-path_ `camel-rest-sql/books` and the REST service provides two services:
 
@@ -184,6 +182,7 @@ $ mvn clean package
 ----
 $ mvn spring-boot:run
 ----
+
 +
 Alternatively, you can run the application locally using the executable JAR produced:
 +
@@ -197,3 +196,7 @@ This uses an embedded in-memory HSQLDB database. You can use the default Spring 
 
 - <http://localhost:8080/camel-rest-sql/books>
 - <http://localhost:8080/camel-rest-sql/books/order/1>
+
+---
+
+Generated by maven plugin - do NOT edit this file! (See https://github.com/jboss-fuse/documentation-template/blob/main/README.md[documentation])
