@@ -66,7 +66,7 @@ $ cd my_openshift/spring-boot-camel-rest-sql
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ mvn clean -DskipTests fabric8:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password> -Popenshift
+$ mvn clean -DskipTests oc:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password> -Popenshift
 ----
 +
 The `username` and `password` system properties correspond to the credentials used when deploying the MySQL database service.
@@ -129,7 +129,7 @@ $ cd my_openshift/spring-boot-camel-rest-sql
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ mvn clean -DskipTests fabric8:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password> -Popenshift  -Dfabric8.generator.fromMode=istag -Dfabric8.generator.from=MY_PROJECT_NAME/fuse-java-openshift:2.0
+$ mvn clean -DskipTests oc:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password> -Popenshift -Djkube.generator.fromMode=istag -Djkube.generator.from=MY_PROJECT_NAME/fuse-java-openshift:2.0
 ----
 +
 The `username` and `password` system properties correspond to the credentials used when deploying the MySQL database service.
@@ -147,7 +147,7 @@ When the example is running, a REST service is available to list the books that 
 
 If you run the example on a single-node OpenShift cluster, then the REST service is exposed at 'http://spring-boot-camel-rest-sql-MY_PROJECT_NAME.OPENSHIFT_IP_ADDR.nip.io/camel-rest-sql/`.
 
-Notice: As it depends on your OpenShift setup, the hostname (route) might vary. Verify with `oc get routes` which hostname is valid for you. Add the `-Dfabric8.deploy.createExternalUrls=true` option to your Maven commands if you want it to deploy a Route configuration for the service.
+Notice: As it depends on your OpenShift setup, the hostname (route) might vary. Verify with `oc get routes` which hostname is valid for you. Add the `-Djkube.deploy.createExternalUrls=true` option to your Maven commands if you want it to deploy a Route configuration for the service.
 
 The actual endpoint is using the _context-path_ `camel-rest-sql/books` and the REST service provides two services:
 
