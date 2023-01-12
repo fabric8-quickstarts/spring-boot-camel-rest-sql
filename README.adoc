@@ -2,18 +2,18 @@
 
 This example demonstrates how to use SQL via JDBC along with Camel's REST DSL to expose a RESTful API.
 
-This example relies on the https://maven.fabric8.io[Fabric8 Maven plugin] for its build configuration
+This example relies on the https://www.eclipse.org/jkube/docs/openshift-maven-plugin[Openshift Maven plugin] for its build configuration
 and uses the https://github.com/fabric8io/base-images#java-base-images[fabric8 Java base image].
 
 The application utilizes the Spring http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/context/annotation/ImportResource.html[`@ImportResource`] annotation to load a Camel Context definition via a _src/main/resources/spring/camel-context.xml_ file on the classpath.
 
-IMPORTANT: This quickstart can run in 2 modes: standalone on your machine and on Kubernetes / OpenShift Cluster
+IMPORTANT: This quickstart can run in 2 modes: standalone on your machine and on Kubernetes / OpenShift Cluster. Quickstart requires Java 8 or Java 11 (`fuse-java-openshift-jdk11-rhel8` image is used to build in Java 11).
 
 == Deployment options
 
 You can run this quickstart in the following modes:
 
-* Kubernetese / Single-node OpenShift cluster
+* Kubernetes / Single-node OpenShift cluster
 * Standalone on your machine
 
 The most effective way to run this quickstart is to deploy and run the project on OpenShift.
@@ -66,7 +66,7 @@ $ cd my_openshift/spring-boot-camel-rest-sql
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ mvn clean -DskipTests fabric8:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password> -Popenshift
+$ mvn clean -DskipTests oc:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password> -Popenshift
 ----
 +
 The `username` and `password` system properties correspond to the credentials used when deploying the MySQL database service.
@@ -99,6 +99,9 @@ $ oc login -u developer -p developer
 ----
 $ oc new-project MY_PROJECT_NAME
 ----
+
+. Configure Red Hat Container Registry authentication (if it is not configured).
+Follow https://access.redhat.com/documentation/en-us/red_hat_fuse/7.10/html-single/fuse_on_openshift_guide/index#configure-container-registry[documentation].
 
 . Import base images in your newly created project (MY_PROJECT_NAME):
 +
@@ -147,7 +150,7 @@ When the example is running, a REST service is available to list the books that 
 
 If you run the example on a single-node OpenShift cluster, then the REST service is exposed at 'http://spring-boot-camel-rest-sql-MY_PROJECT_NAME.OPENSHIFT_IP_ADDR.nip.io/camel-rest-sql/`.
 
-Notice: As it depends on your OpenShift setup, the hostname (route) might vary. Verify with `oc get routes` which hostname is valid for you. Add the `-Dfabric8.deploy.createExternalUrls=true` option to your Maven commands if you want it to deploy a Route configuration for the service.
+Notice: As it depends on your OpenShift setup, the hostname (route) might vary. Verify with `oc get routes` which hostname is valid for you. Add the `-Djkube.deploy.createExternalUrls=true` option to your Maven commands if you want it to deploy a Route configuration for the service.
 
 The actual endpoint is using the _context-path_ `camel-rest-sql/books` and the REST service provides two services:
 
