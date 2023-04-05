@@ -114,7 +114,7 @@ $ oc import-image fuse-java-openshift:2.0 --from=registry.access.redhat.com/jbos
 +
 ----
 $ oc create -f https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-ephemeral-template.json
-$ oc new-app --template=mysql-ephemeral
+$ oc new-app --template=mysql-ephemeral -p MYSQL_USER=<username> -p MYSQL_PASSWORD=<password>
 ----
 +
 More information can be found in https://docs.openshift.com/container-platform/3.3/using_images/db_images/mysql.html[using the MySQL database image]. You may need to pass `MYSQL_RANDOM_ROOT_PASSWORD=true` as environment variable to the deployment.
