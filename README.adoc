@@ -101,13 +101,13 @@ $ oc new-project MY_PROJECT_NAME
 ----
 
 . Configure Red Hat Container Registry authentication (if it is not configured).
-Follow https://access.redhat.com/documentation/en-us/red_hat_fuse/7.10/html-single/fuse_on_openshift_guide/index#configure-container-registry[documentation].
+Follow https://access.redhat.com/documentation/en-us/red_hat_fuse/7.13/html-single/fuse_on_openshift_guide/index#configure-container-registry[documentation].
 
 . Import base images in your newly created project (MY_PROJECT_NAME):
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc import-image fuse-java-openshift:2.0 --from=registry.access.redhat.com/jboss-fuse-7/fuse-java-openshift:2.0 --confirm
+$ oc import-image fuse-java-openshift:1.13 --from=registry.redhat.io/fuse7/fuse-java-openshift:1.13 --confirm
 ----
 
 . It is assumed that a MySQL service is already running on the platform. You can deploy it using the provided deployment by executing in single-node OpenShift cluster:
@@ -132,7 +132,7 @@ $ cd my_openshift/spring-boot-camel-rest-sql
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ mvn clean -DskipTests oc:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password> -Popenshift  -Djkube.generator.fromMode=istag -Djkube.generator.from=MY_PROJECT_NAME/fuse-java-openshift:2.0
+$ mvn clean -DskipTests oc:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password> -Popenshift  -Djkube.generator.fromMode=istag -Djkube.generator.from=MY_PROJECT_NAME/fuse-java-openshift:1.13
 ----
 +
 The `username` and `password` system properties correspond to the credentials used when deploying the MySQL database service.
